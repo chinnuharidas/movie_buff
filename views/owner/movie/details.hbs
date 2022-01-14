@@ -1,0 +1,22 @@
+{{#if result }}
+{{#each result }}
+    <tr>
+        <td>{{ inc @index }}</td>
+        <td>{{ this.original_title }}</td>
+        <td>{{ this.original_language }}</td>
+        <td>{{ this.overview }}</td>
+        <td>{{ this.release_date }}</td>
+        <td>
+        {{#if this.backdrop_path }}
+            <img class="img-poster" src="https://image.tmdb.org/t/p/w500{{ this.backdrop_path }}">
+        {{/if }}
+        </td>
+        <td>
+            <button type="button" class="btn btn-xs btn-primary all_btns" id="btn_{{ this.id }}" onclick="movie_clicked({{ this.id }})">Select Movie</button>
+            <button type="button" class="btn btn-xs btn-success all_select_btns" id="selected_btn_{{ this.id }}" style="display:none;" >Selected</button>
+        </td>
+    </tr>
+{{/each }}
+{{else }}
+    <tr><td colspan="7">NO MOVIES FOUND....!</td></tr>
+{{/if}}

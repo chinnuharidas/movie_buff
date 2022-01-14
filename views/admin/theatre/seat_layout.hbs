@@ -1,0 +1,158 @@
+<div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="text-center">Seat Layout</h5>
+                        <h3 class="text-center text-danger">{{ movie.title }}</h3>
+                        <h6 class="text-center">{{ mapping.theatreDetail.location }},
+                            {{ mapping.districtDetail.district_name }}
+                        </h6>
+                        <div class="row text-center">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="btn btn-secondary">
+                                            Sold
+                                            <br/>
+                                            {{ bookedCount }}
+                                        </div>
+                                        <div class="btn border-success">Available
+                                            <br />
+                                            {{ availableCount }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card table-responsive">
+                    <table class="table table-bordered border-less table-sm">
+                        {{#if screenLayout.recliner }}
+                        <tr class="bg-secondary">
+                            <th class="text-center" colspan="{{ screenDetail.columns }}">
+                                Recliner Seats - Rs. {{ screenDetail.recliner_price }} /-
+                            </th>
+                        </tr>
+                        {{#each screenLayout.recliner }}
+                        <tr>
+                            {{#each this }}
+                            <td class="text-center">
+                                {{#ifCond this.status '==' 'available' }}
+                                <span class="btn border-success text-success p-1">
+                                    {{ this.seatDisplay }}
+                                </span>
+                                {{/ifCond }}
+
+                                {{#ifCond this.status '==' 'booked' }}
+                                <span class="btn border-secondary btn-secondary text-white">
+                                    {{ this.seatDisplay }}
+                                </span>
+                                {{/ifCond }}
+
+                            </td>
+                            {{/each }}
+                        </tr>
+                        {{/each }}
+                        {{/if }}
+
+                        {{#if screenLayout.prime }}
+                        <tr class="bg-secondary">
+                            <th class="text-center" colspan="{{ screenDetail.columns }}">
+                                Prime Seats - Rs. {{ screenDetail.prime_price }} /-
+                            </th>
+                        </tr>
+                        {{#each screenLayout.prime }}
+                        <tr>
+                            {{#each this }}
+                            <td class="text-center">
+                                {{#ifCond this.status '==' 'available' }}
+                                <span class="btn border-success text-success p-1">
+                                    {{ this.seatDisplay }}
+                                </span>
+                                {{/ifCond }}
+
+                                {{#ifCond this.status '==' 'booked' }}
+                                <span class="btn border-secondary btn-secondary text-white">
+                                    {{ this.seatDisplay }}
+                                </span>
+                                {{/ifCond }}
+
+                            </td>
+                            {{/each }}
+                        </tr>
+                        {{/each }}
+                        {{/if }}
+
+
+                        {{#if screenLayout.classic_plus }}
+                        <tr class="bg-secondary">
+                            <th class="text-center" colspan="{{ screenDetail.columns }}">
+                                Classic Plus Seats - Rs. {{ screenDetail.classic_plus_price }} /-
+                            </th>
+                        </tr>
+                        {{#each screenLayout.classic_plus }}
+                        <tr>
+                            {{#each this }}
+                            <td class="text-center">
+                                {{#ifCond this.status '==' 'available' }}
+                                <span class="btn border-success text-success p-1">
+                                    {{ this.seatDisplay }}
+                                </span>
+                                {{/ifCond }}
+
+                                {{#ifCond this.status '==' 'booked' }}
+                                <span class="btn border-secondary btn-secondary text-white">
+                                    {{ this.seatDisplay }}
+                                </span>
+                                {{/ifCond }}
+
+                            </td>
+                            {{/each }}
+                        </tr>
+                        {{/each }}
+                        {{/if }}
+
+                        {{#if screenLayout.classic }}
+                        <tr class="bg-secondary">
+                            <th class="text-center" colspan="{{ screenDetail.columns }}">
+                                Classic Seats - Rs. {{ screenDetail.classic_price }} /-
+                            </th>
+                        </tr>
+                        {{#each screenLayout.classic }}
+                        <tr>
+                            {{#each this }}
+                            <td class="text-center">
+                                {{#ifCond this.status '==' 'available' }}
+                                <span class="btn border-success text-success p-1">
+                                    {{ this.seatDisplay }}
+                                </span>
+                                {{/ifCond }}
+
+                                {{#ifCond this.status '==' 'booked' }}
+                                <span class="btn border-secondary btn-secondary text-white">
+                                    {{ this.seatDisplay }}
+                                </span>
+                                {{/ifCond }}
+
+                            </td>
+                            {{/each }}
+                        </tr>
+                        {{/each }}
+                        {{/if }}
+
+                        <tr>
+                            <td class="text-center" colspan="{{ screenDetail.columns }}">
+                                <img style="width:50%;" src="/assets/images/all_eyes.png" /></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>

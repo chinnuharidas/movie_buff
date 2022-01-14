@@ -1,0 +1,298 @@
+<div class="wrapper">
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Theatre Profile</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+                            <li class="breadcrumb-item active">Theatre Profile</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+
+                    {{#if errorMsg }}
+                    <div class="col-md-12">
+                        <div class="card card-danger">
+                            <div class="card-header">
+                                <h3 class="card-title">Error</h3>
+
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i
+                                            class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                {{ errorMsg }}
+                            </div>
+                        </div>
+                    </div>
+                    {{/if }}
+
+                    {{#if successMsg }}
+                    <div class="col-md-12">
+                        <div class="card card-success">
+                            <div class="card-header">
+                                <h3 class="card-title">Success</h3>
+
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i
+                                            class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                {{ successMsg }}
+                            </div>
+                        </div>
+                    </div>
+                    {{/if }}
+
+
+                    <div class="col-md-3">
+
+                        <!-- Profile Image -->
+                        <div class="card card-primary card-outline">
+                            <div class="card-body box-profile">
+                                <div class="text-center">
+                                    {{#if theatre.profilePicUrl }}
+                                    <img class="profile-user-img img-fluid img-circle" src="{{ theatre.profilePicUrl }}"
+                                        alt="User profile picture">
+                                    {{/if }}
+                                </div>
+
+                                <h3 class="profile-username text-center">{{ theatre.name }}</h3>
+
+                                <p class="text-muted text-center">Owned By {{ theatre.owner_name }}</p>
+
+                                <ul class="list-group list-group-unbordered mb-3">
+                                    <li class="list-group-item">
+                                        <b>Location</b> <a class="float-right">{{ theatre.location }}</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>District</b>
+                                        <a class="float-right">
+                                            {{#each theatre.district_arr }}
+                                            {{ this.district_name }}
+                                            {{/each }}
+                                        </a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Owner Name</b> <a class="float-right">{{ theatre.owner_name }}</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Owner Email</b> <a class="float-right">{{ theatre.owner_email }}</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Owner Mobile</b> <a class="float-right">{{ theatre.owner_mobile }}</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Account Created</b>
+                                        <a class="float-right">
+                                            {{ dateFormat theatre.createdAt "MMMM DD, YYYY HH:mm:ss" }}
+                                        </a>
+                                    </li>
+
+
+                                    <li class="list-group-item">
+                                        <b>Status</b>
+                                        {{#ifCond theatre.status '==' 'approved' }}
+                                        <span class="float-right text-uppercase badge badge-success">Approved</span>
+                                        {{/ifCond }}
+
+                                        {{#ifCond theatre.status '==' 'rejected' }}
+                                        <span class="float-right text-uppercase badge badge-danger">Rejected</span>
+                                        {{/ifCond }}
+
+                                        {{#ifCond theatre.status '==' 'pending' }}
+                                        <span class="float-right text-uppercase badge badge-info">Pending</span>
+                                        {{/ifCond }}
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Status Updated At </b>
+                                        {{#ifCond theatre.status '==' 'approved' }}
+                                        <a class="float-right">
+                                            {{ dateFormat theatre.approvedAt "MMMM DD, YYYY HH:mm:ss" }}
+                                        </a>
+                                        {{/ifCond }}
+
+                                        {{#ifCond theatre.status '==' 'rejected' }}
+                                        <a class="float-right">
+                                            {{ dateFormat theatre.rejectedAt "MMMM DD, YYYY HH:mm:ss" }}
+                                        </a>
+                                        {{/ifCond }}
+                                    </li>
+
+                                    {{#if theatre.status_update_remarks }}
+                                    <li class="list-group-item">
+                                        <b>Remarks </b>
+                                        <a class="float-right">
+                                            {{ theatre.status_update_remarks }}
+                                        </a>
+                                    </li>
+                                    {{/if }}
+
+
+                                    {{#if isAdmin }}
+                                    {{#ifCond theatre.status '!=' 'approved' }}
+                                    <li class="list-group-item">
+                                        <button class="btn btn-block btn-success get_status_upd_form"
+                                            data-id="{{ theatre._id }}" data-status="approve">Approve</button>
+                                    </li>
+                                    {{/ifCond }}
+                                    {{#ifCond theatre.status '!=' 'rejected' }}
+                                    <li class="list-group-item">
+                                        <button class="btn btn-block btn-danger get_status_upd_form"
+                                            data-id="{{ theatre._id }}" data-status="reject">Reject</button>
+
+                                    </li>
+                                    {{/ifCond }}
+                                    {{/if}}
+
+
+
+                                    <li class="list-group-item">
+                                        <button class="btn btn-block btn-warning btn_location_icon" data-name="{{ theatre.name }}" data-lat="{{ theatre.lat }}" data-lng="{{ theatre.lng }}">
+                                            Get Location
+                                        </button>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-9">
+                        <div class="card">
+                            <div class="card-header p-2">
+                                <ul class="nav nav-pills">
+                                    <li class="nav-item"><a class="nav-link active" href="#settings"
+                                            data-toggle="tab">Today's Show</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Screen
+                                            Details</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#activity"
+                                            data-toggle="tab">Gallery</a></li>
+                                </ul>
+                            </div>
+                            <div class="card-body">
+                                <div class="tab-content">
+
+
+                                    <div class="active tab-pane" id="settings">
+                                        <table id="example2" class="table table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Movie</th>
+                                                    <th>Shows</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {{#each shows }}
+                                                <tr>
+                                                    <td>
+                                                        {{ this.movie_details.title }}
+                                                        <p class="text-danger">
+                                                            Language : {{ this.movie_details.original_language }},
+                                                            Popularity : {{ this.movie_details.popularity }}, 
+                                                            Duration : {{ this.movie_details.runtime }} minutes
+                                                        </p>
+                                                    </td>
+                                                    <td>
+                                                    {{#each this.screens }}
+                                                        <button data-action="/admin/seat_layout/{{ ../this._id }}/{{ this._id }}" class="btn border-success bg-light bg-secondary text-success mr-2 btn_show_modal">
+                                                            <u>{{ this.screenDetails.name }}</u>
+                                                            </br>
+                                                            {{#splitTime this.start_time }}
+                                                            {{/splitTime}}
+                                                        </a>
+                                                    {{/each }}
+                                                    </td>
+                                                </tr>
+                                                {{/each }}
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                    <div class="tab-pane" id="timeline">
+                                        <table id="example2" class="table table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Name</th>
+                                                    <th>Rows</th>
+                                                    <th>Columns</th>
+                                                    <th>Number of Seats</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {{#each screens }}
+                                                <tr class="rec{{ this._id }}">
+                                                    <td>{{inc @index}}</td>
+                                                    <td>{{ this.name }}</td>
+                                                    <td>{{this.rows }}</td>
+                                                    <td>{{ this.columns }}</td>
+                                                    <td>{{this.numberOfSeats }}</td>
+                                                </tr>
+                                                {{/each }}
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="tab-pane" id="activity">
+                                        <div class="post">
+                                            <div class="user-block">
+                                                {{#if theatre.profilePicUrl }}
+                                                <img class="img-circle img-bordered-sm"
+                                                    src="{{ theatre.profilePicUrl }}" alt="User Image">
+                                                {{/if }}
+                                                <span class="username">
+                                                    <a href="#">{{ theatre.name }}</a>
+                                                    <button type="button"
+                                                        class="float-right btn btn-primary get_image_form"
+                                                        data-id="{{ theatre._id }}">
+                                                        Add Photos
+                                                    </button>
+                                                    <button type="button"
+                                                        class="float-right btn btn-primary mr-3 get_profile_pic_form"
+                                                        data-id="{{ theatre._id }}">
+                                                        Change Profile Picture
+                                                    </button>
+
+                                                </span>
+                                                <span class="description">Images Updated On
+                                                    {{#if theatre.imageUpdatedAt }}
+                                                    {{ dateFormat theatre.imageUpdatedAt "MMMM DD, YYYY HH:mm:ss" }}
+                                                    {{/if }}
+                                                </span>
+                                            </div>
+                                            <div class="row mb-3">
+                                                {{#each theatre.imgUrls }}
+                                                <div class="col-sm-3">
+                                                    <img class="img-fluid" src="{{ this.imgurl }}" alt="Photo">
+                                                </div>
+                                                {{/each }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

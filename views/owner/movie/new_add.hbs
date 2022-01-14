@@ -1,0 +1,151 @@
+<div class="wrapper">
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Movies</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="/owner">Home</a></li>
+                            <li class="breadcrumb-item active">
+                                Movie - Add
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <form id="newMovieForm" method="POST" action="/owner/movie/add_new">
+                                    <div class="row text-danger">
+                                        <div class="col-md-12 text-center error"></div>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-md-4 form-group">
+                                            <label for="name">Movie Title</label>
+                                            <input class="form-control" placeholder="Movie Title" name="title">
+                                        </div>
+
+                                        <div class="col-md-4 form-group">
+                                            <label for="name">Budget</label>
+                                            <input name="budget" placeholder="Budget" class="form-control" >
+                                        </div>
+
+                                        <div class="col-md-4 form-group">
+                                            <label for="name">Genres</label>
+                                            <select name="genres[]" multiple="multiple" class="form-control select2" >
+                                                {{#each genres }}
+                                                <option value="{{ this.name}}">{{ this.name }}</option>
+                                                {{/each }}
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4 form-group">
+                                            <label for="name">Movie Website Home Page</label>
+                                            <input name="homepage" class="form-control" placeholder="Movie Website Home Page">
+                                        </div>
+
+                                        <div class="col-md-4 form-group">
+                                            <label for="name">Movie Language</label>
+                                            <select class="form-control select2" name="original_language">
+                                                <option value="">Select Language</option>
+                                                {{#each languages }}
+                                                <option value="{{ this.english_name }}">{{ this.english_name }}</option>
+                                                {{/each }}
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4 form-group">
+                                            <label for="name">Popularity</label>
+                                            <input class="form-control" name="popularity" placeholder="Popularity">
+                                        </div>
+
+                                        <div class="col-md-4 form-group">
+                                            <label for="name">Release date</label>
+                                            <input class="form-control datepicker" placeholder="Release date" name="release_date">
+                                        </div>
+
+                                        <div class="col-md-4 form-group">
+                                            <label for="name">Revenue</label>
+                                            <input class="form-control" placeholder="Revenue" name="revenue">
+                                        </div>
+
+                                        <div class="col-md-4 form-group">
+                                            <label for="name">Runtime(in minutes)</label>
+                                            <input class="form-control" placeholder="Runtime(in minutes)" name="runtime">
+                                        </div>
+
+                                        <div class="col-md-4 form-group">
+                                            <label for="name">Movie Current Status</label>
+
+                                            <select class="form-control select2" name="status">
+                                                <option value="">Select status</option>
+                                                <option value="Released">Released</option>
+                                                <option value="Not Released">Not Released</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4 form-group">
+                                            <label for="name">Tagline</label>
+                                            <input class="form-control" placeholder="Tagline" name="tagline">
+                                        </div>
+
+                                        <div class="col-md-4 form-group">
+                                            <label for="name">Vote Average</label>
+                                            <input class="form-control" placeholder="Vote Average" name="vote_average">
+                                        </div>
+
+                                        <div class="col-md-4 form-group">
+                                            <label for="name">Vote Count</label>
+                                            <input class="form-control" placeholder="Vote Count" name="vote_count">
+                                        </div>
+
+                                        <div class="col-md-4 form-group">
+                                            <label for="name">Overview</label>
+                                            <textarea class="form-control" placeholder="Overview" name="overview"></textarea>
+                                        </div>
+
+                                        <div class="col-md-4 form-group">
+                                            <label for="name">Category</label>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="adult" id="adult1" value="1">
+                                                <label class="form-check-label" for="adult1">
+                                                    Adult Movie
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="adult" id="adult2" value="0" checked>
+                                                <label class="form-check-label" for="adult2">
+                                                    For all ages
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button type="reset"
+                                                class="btn btn-secondary ml-2 float-right">Reset</button>
+                                            <button type="submit" onclick="return validateNewMovieAddForm()"
+                                                class="btn btn-primary ml-2 float-right">Save</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

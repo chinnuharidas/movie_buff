@@ -1,0 +1,129 @@
+
+    <div class="wrapper">
+        <div class="content-wrapper">
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>Theatres - 
+                                {{#ifCond active '==' 'theatre-all' }} All {{/ifCond }}
+                                {{#ifCond active '==' 'theatre-pending' }} Pending Approval {{/ifCond }}
+                                {{#ifCond active '==' 'theatre-approved' }} Approved {{/ifCond }}
+                                {{#ifCond active '==' 'theatre-rejected' }} Rejected {{/ifCond }}
+                            </h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+                                <li class="breadcrumb-item active">
+                                    Theatres - 
+                                    {{#ifCond active '==' 'theatre-all' }} All {{/ifCond }}
+                                    {{#ifCond active '==' 'theatre-pending' }} Pending Approval {{/ifCond }}
+                                    {{#ifCond active '==' 'theatre-approved' }} Approved {{/ifCond }}
+                                    {{#ifCond active '==' 'theatre-rejected' }} Rejected {{/ifCond }}
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+
+                            {{#if errorMsg }}
+                            <div class="card card-danger">
+                                <div class="card-header">
+                                    <h3 class="card-title">Error</h3>
+
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    {{ errorMsg }}
+                                </div>
+                            </div>
+                            {{/if }}
+
+                            {{#if successMsg }}
+                            <div class="card card-success">
+                                <div class="card-header">
+                                    <h3 class="card-title">Success</h3>
+
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    {{ successMsg }}
+                                </div>
+                            </div>
+                            {{/if }}
+
+                            <div class="card">
+                                <div class="card-body">
+                                    <table id="example2" class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Name</th>
+                                                <th>Owner Name</th>
+                                                <th>Owner Mobile</th>
+                                                <th>Location</th>
+                                                <th>District</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {{#each theatres }}
+                                            <tr>
+                                                <td>{{inc @index}}</td>
+                                                <td>{{ this.name }}</td>
+                                                <td>{{ this.owner_name }}</td>
+                                                <td>{{ this.owner_mobile }}</td>
+                                                <td>{{this.location}}</td>
+                                                <td>
+                                                    {{#each this.district_arr }}
+                                                        {{ this.district_name }}
+                                                    {{/each }}
+                                                </td>
+                                                <td>
+                                                    {{#ifCond this.status '==' 'approved' }}
+                                                    <span class="text-uppercase badge badge-success">Approved</span>
+                                                    {{/ifCond }}
+
+                                                    {{#ifCond this.status '==' 'rejected' }}
+                                                    <span class="text-uppercase badge badge-danger">Rejected</span>
+                                                    {{/ifCond }}
+
+                                                    {{#ifCond this.status '==' 'pending' }}
+                                                    <span class="text-uppercase badge badge-info">Pending</span>
+                                                    {{/ifCond }}
+                                                </td>
+                                                <td>
+                                                    <a href="/admin/theatre/profile/{{ this._id }}" class="btn btn-primary">Get Profile</a>
+                                                    {{#ifCond this.status '!=' 'approved' }}
+                                                        <button class="btn btn-success get_status_upd_form" data-id="{{ this._id }}" data-status="approve">Approve</button>
+                                                    {{/ifCond }}
+                                                    {{#ifCond this.status '!=' 'rejected' }}
+                                                        <button class="btn btn-danger get_status_upd_form" data-id="{{ this._id }}" data-status="reject">Reject</button>
+                                                    {{/ifCond }}
+                                                </td>
+                                            </tr>
+                                            {{/each }}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>

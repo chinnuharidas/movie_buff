@@ -1,0 +1,71 @@
+<!-- ==========Preloader========== -->
+<div class="preloader">
+    <div class="preloader-inner">
+        <div class="preloader-icon">
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</div>
+<!-- ==========Preloader========== -->
+<!-- ==========Overlay========== -->
+<div class="overlay"></div>
+<a href="#0" class="scrollToTop">
+    <i class="fas fa-angle-up"></i>
+</a>
+<!-- ==========Overlay========== -->
+
+<!-- ==========Header-Section========== -->
+<header class="header-section">
+    <div class="container">
+        <div class="header-wrapper">
+            <div class="logo">
+                <a href="/">
+                    <img src="/user_assets/images/logo/logo_2.png" alt="logo">
+                </a>
+            </div>
+            <ul class="menu">
+                <li>
+                    <a href="/" class="{{#ifCond section '==' 'home' }} active {{/ifCond }}">Home</a>
+                </li>
+
+                <li>
+                    <a href="/search_movie" class="{{#ifCond section '==' 'movies' }} active {{/ifCond }}">Movies</a>
+                </li>
+
+                
+
+                {{#if isUserLoggedIn }}
+                <li><a href="/user-tickets" class="{{#ifCond section '==' 'tickets' }} active {{/ifCond }}">My
+                        Bookings</a></li>
+                {{/if }}
+
+                <li>
+                    <a href="#0">
+                        {{#if isUserLoggedIn }}
+                        {{ user_name }}
+                        {{else }}
+                        Account
+                        {{/if }}
+                    </a>
+                    <ul class="submenu">
+                        {{#if isUserLoggedIn }}
+                        <li><a href="/logout">Logout</a></li>
+                        {{else }}
+                        <li><a href="/signup">Sign Up</a></li>
+                        <li><a href="/login">Log In</a></li>
+                        {{/if }}
+                    </ul>
+                </li>
+
+
+            </ul>
+            <div class="header-bar d-lg-none">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- ==========Header-Section========== -->

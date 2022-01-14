@@ -1,0 +1,70 @@
+<div class="card card-outline card-primary mt-5">
+
+    <div class="card-header text-center">
+        <a href="/owner/login" class="h1"><b>Theatre</b>Owner</a>
+    </div>
+    <div class="card-body">
+        <p class="login-box-msg">Sign in to start your session</p>
+
+        {{#if successMsg }}
+        <div class="card card-success">
+            <div class="card-header">
+                <h3 class="card-title">Success</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                {{ successMsg }}
+            </div>
+        </div>
+        {{/if }}
+
+        {{#if errorMsg }}
+        <div class="card card-danger">
+            <div class="card-header">
+                <h3 class="card-title">Error</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                {{ errorMsg }}
+            </div>
+        </div>
+        {{/if }}
+
+
+        <form action="/owner/login" id="ownerLoginForm" method="post">
+            <div class="input-group mb-3">
+                <input type="text" name="owner_mobile" class="form-control" placeholder="Mobile">
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-mobile"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-group mb-3">
+                <input type="password" name="password" class="form-control" placeholder="Password">
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-lock"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <button type="submit" onclick="return validateOwnerLoginForm()" class="btn btn-primary btn-block">Sign In</button>
+                    <a href="/owner/signup" class="btn btn-info btn-block">Don't have account? Sign Up</a>
+                    <a href="/owner/otplogin" class="btn btn-warning btn-block">Forgot Password ? Login with OTP</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

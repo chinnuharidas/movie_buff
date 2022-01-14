@@ -1,0 +1,153 @@
+<!-- ==========Banner-Section========== -->
+<section class="banner-section">
+    <div class="banner-bg bg_img bg-fixed" data-background="/user_assets/images/banner/banner02.jpg"></div>
+    <div class="container">
+        <div class="banner-content">
+            <h1 class="title bold">View <span class="color-theme">Upcoming</span> movies</h1>
+            <p>Buy movie tickets in advance, find movie times watch trailers, read movie reviews and much more</p>
+        </div>
+    </div>
+</section>
+<!-- ==========Banner-Section========== -->
+
+<!-- ==========Ticket-Search========== -->
+<section class="search-ticket-section padding-top pt-lg-0">
+    <div class="container">
+        <div class="search-tab bg_img" data-background="/user_assets/images/ticket/ticket-bg01.jpg">
+            <div class="row align-items-center mb--20">
+                <div class="col-lg-6 mb-20">
+                    <div class="search-ticket-header">
+                        <h6 class="category">welcome to MovieBuff </h6>
+                        <h3 class="title">what are you looking for</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ==========Ticket-Search========== -->
+
+<!-- ==========Movie-Section========== -->
+<section class="movie-section padding-top padding-bottom">
+    <div class="container">
+        <div class="row flex-wrap-reverse justify-content-center">
+            <div class="col-lg-12 mb-50 mb-lg-0">
+                <div class="filter-tab tab">
+                    <div class="filter-area">
+                        <div class="filter-main">
+                            <ul class="grid-button tab-menu">
+                                <li class="active">
+                                    <i class="fas fa-th"></i>
+                                </li>
+                                <li>
+                                    <i class="fas fa-bars"></i>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tab-area">
+                        <div class="tab-item active">
+                            <div class="row mb-10 justify-content-center movie_filter_grid">
+
+                                {{#each upcoming }}
+                                <div class="col-sm-4 col-lg-3">
+                                    <div class="movie-grid">
+                                        <div class="movie-thumb c-thumb">
+                                            <a
+                                                href="/upcoming/movie_info/{{ this._id }}/{{ this.api_movie_id }}">
+                                                {{#if posterFinalFile }}
+                                                <img class="img-poster" src="{{ posterFinalFile }}" alt="Movie">
+                                                {{else }}
+                                                <img class="img-poster"
+                                                    src="https://image.tmdb.org/t/p/w500{{ this.poster_path }}"
+                                                    alt="Movie">
+                                                {{/if }}
+                                            </a>
+                                        </div>
+                                        <div class="movie-content bg-one">
+                                            <h5 class="title m-0">
+                                                <a
+                                                    href="/upcoming/movie_info/{{ this._id }}/{{ this.api_movie_id }}">
+                                                    {{ this.original_title }}
+                                                </a>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{/each }}
+
+
+                            </div>
+                        </div>
+                        <div class="tab-item">
+                            <div class="movie-area mb-10 movie_filter_list">
+
+                                {{#each upcoming }}
+                                <div class="movie-list">
+                                    <div class="movie-thumb c-thumb">
+
+
+                                        {{#if posterFinalFile }}
+
+                                        <a href="/upcoming/movie_info/{{ this._id }}/{{ this.api_movie_id }}"
+                                            class="w-100 bg_img h-100" data-background="{{ posterFinalFile }}">
+
+                                            {{else }}
+
+                                        <a href="/upcoming/movie_info/{{ this._id }}/{{ this.api_movie_id }}"
+                                            class="w-100 bg_img h-100"
+                                            data-background="https://image.tmdb.org/t/p/w500{{ this.poster_path }}">
+
+                                            {{/if }}
+
+                                            {{#if posterFinalFile }}
+                                            <img class="d-sm-none" src="{{ posterFinalFile }}" alt="Movie">
+                                            {{else }}
+                                            <img class="d-sm-none"
+                                                src="https://image.tmdb.org/t/p/w500{{ this.poster_path }}"
+                                                alt="Movie">
+                                            {{/if }}
+
+                                        </a>
+                                    </div>
+                                    <div class="movie-content bg-one">
+                                        <h5 class="title">
+                                            <a href="/upcoming/movie_info/{{ this._id }}/{{ this.api_movie_id }}">
+                                                {{ this.original_title }}</a>
+                                        </h5>
+                                        <p class="duration">{{ this.tagline }}</p>
+                                        <div class="movie-tags">
+                                            {{#ifCond this.api_movie_id '==' '0' }}
+                                                {{#each this.genres }}
+                                                <a href="#0">{{ this }}</a>
+                                                {{/each }}
+                                            {{/ifCond }}
+
+                                            {{#ifCond this.api_movie_id '!=' '0' }}
+                                                {{#each this.genres }}
+                                                <a href="#0">{{ this.name }}</a>
+                                                {{/each }}
+                                            {{/ifCond }}
+                                        </div>
+                                        <div class="release">
+                                            <span>Release Date : </span> <a href="#0"> {{#splitDate
+                                                this.release_date }} {{/splitDate }}</a>
+                                        </div>
+                                        <div class="book-area">
+                                            <div class="book-ticket">
+                                                <div class="react-item mr-auto">
+                                                    <span>Language : {{ this.original_language }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{/each }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

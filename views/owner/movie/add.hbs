@@ -1,0 +1,84 @@
+<div class="wrapper">
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Screens</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="/owner">Home</a></li>
+                            <li class="breadcrumb-item active">
+                                Screens - Add
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <form id="movieForm" method="POST" action="/owner/movie/add">
+                                    <div class="row text-danger"><div class="col-md-12 text-center error"></div></div>
+                                    <div class="row">
+                                        <div class="col-md-4 form-group">
+                                            <label for="name">Movie Name</label>
+                                            <input type="text" id="movie_name" class="form-control">
+                                        </div>
+                                        <div class="col-md-4 form-group mt-2">
+                                            <input name="api_movie_id" id="api_movie_id" value="" type="hidden" >
+                                            <button type="button" data-actionpath="/owner/movie/search" class="get_movie_details mt-4 btn btn-primary btn-sm">
+                                                Get Movies List
+                                            </button>
+
+                                            <a href="/owner/movie/add_new" class="mt-4 btn btn-primary btn-sm">
+                                                Add New Movie
+                                            </a>
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Name</th>
+                                                        <th>Language</th>
+                                                        <th>Story</th>
+                                                        <th>Release Date</th>
+                                                        <th>Image</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="movies_list_from_api">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button type="reset"
+                                                class="btn btn-secondary ml-2 float-right">Reset</button>
+                                            <button type="submit" onclick="return validateMovieForm()"
+                                                class="btn btn-primary ml-2 float-right">Save</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

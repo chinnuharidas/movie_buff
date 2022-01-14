@@ -1,0 +1,296 @@
+<section class="contact-us" id="contact">
+    {{#if seat_count }}
+    {{else }}
+    {{#if balance }}
+    <div class="container" id="overlay">
+        <section class="window-warning">
+            <div class="lay"></div>
+            <div class="warning-item">
+                <h6 class="subtitle">Welcome! </h6>
+                <h4 class="title">Select Your Seats</h4>
+                <div class="thumb">
+                    <img src="/user_assets/images/movie/seat-plan.png" alt="movie">
+                </div>
+
+                <form method="POST" id="seatCountSelectForm"
+                    action="/submit_seats/{{ movieId }}/{{ mappingId }}/{{ date }}">
+                    <div class="row">
+                        <input name="seat_count" id="seat_count" type="hidden">
+                        <div class="row mr-3 ml-3">
+                            {{#times balance }}
+                            <div class="ml-3 mt-2 mb-3 text-center">
+                                <div data-value="{{ inc this }}" class="btn btn-secondary btn_seat_count_select">{{ inc
+                                    this }}</div>
+                            </div>
+                            {{/times}}
+
+                            <div class="col-md-12 row">
+                                <button onclick="return validateSeatCountSelectForm()" type="submit"
+                                    style="width: 50%;margin-left:auto;"
+                                    class="custom-button seatPlanButton">Select Seats<i
+                                        class="fas fa-angle-right"></i></button>
+                            </div>
+                        </div>
+                        <div class="form-group text-center">
+                        </div>
+                    </div>
+                </form>
+        </section>
+    </div>
+    </div>
+
+
+
+</section>
+
+{{/if }}
+{{/if }}
+
+
+<section class="details-banner hero-area bg_img seat-plan-banner"
+    data-background="/user_assets/images/banner/banner04.jpg">
+    <div class="container">
+        <div class="details-banner-wrapper">
+            <div class="details-banner-content style-two">
+                <h3 class="title">{{ movie.original_title }}</h3>
+                <div class="tags">
+                    <a href="#0">{{ mapping.theatreDetail.location }}</a>
+                    <a href="#0">{{ mapping.districtDetail.district_name }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="page-title bg-one">
+    <div class="container">
+        <div class="page-title-area">
+            <div class="item md-order-1">
+                Seat Count : {{ seat_count }}
+            </div>
+            <form method="POST" id="seatCountSelectForm"
+                action="/submit_seats/{{ movieId }}/{{ mappingId }}/{{ date }}">
+                <div class="item date-item">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <select name="seat_count" class="select-bar">
+                                <option value="">Select Seat Count</option>
+                                {{#times balance }}
+                                <option value="{{ inc this }}">{{ inc this }}</option>
+                                {{/times}}
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <button onclick="return validateSeatCountSelectForm()" class="btn btn-xs btn-primary"
+                                type="submit" style="min-width: 5em;">Change</button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+            <div class="item">
+                <input id="booking_view" type="hidden" value="1">
+                <h5 class="title"><span id="booking_timer"></span></h5>
+                <p>Mins Left</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="seat-plan-section padding-bottom padding-top">
+    <div class="container">
+        <div class="screen-area">
+
+            <input type="hidden" id="seat_layout_path" value="/seat_layout/{{ movieId }}/{{ mappingId }}/{{ date }}">
+            <input type="hidden" value="{{ date }}" id="show_date">
+            <input type="hidden" value="{{ mappingId }}" id="mapping_id">
+
+            {{#if screenLayout.recliner }}
+            <h5 class="subtitle">Recliner Seats - Rs. {{ screenDetail.recliner_price }} /-</h5>
+
+            <div class="screen-wrapper">
+                <ul class="seat-area couple">
+                    <li class="seat-line">
+                        <ul class="seat--area">
+                            <li class="front-seat">
+                                {{#each screenLayout.recliner }}
+                                <ul>
+                                    {{#each this }}
+                                    {{#ifCond this.status '==' 'available' }}
+                                    <li data-type="recliner" data-value="{{ this.actualSeat }}"
+                                        data-display="{{ this.seatDisplay }}" class="rounded single-seat btn_available_seat">
+                                        <img src="/user_assets/images/movie/seat01.png" alt="seat">
+                                        {{ this.seatDisplay }}
+                                    </li>
+
+                                    {{/ifCond }}
+
+                                    {{#ifCond this.status '==' 'booked' }}
+                                    <li class="single-seat">
+                                        <img src="/user_assets/images/movie/seat01-free.png"
+                                            alt="seat-{{ this.seatDisplay }}">
+                                        {{ this.seatDisplay }}
+                                    </li>
+                                    {{/ifCond }}
+                                    {{/each }}
+                                </ul>
+                                {{/each }}
+
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            {{/if }}
+
+            {{#if screenLayout.prime }}
+            <h5 class="subtitle">
+                Prime Seats - Rs. {{ screenDetail.prime_price }} /-
+            </h5>
+
+            <div class="screen-wrapper">
+                <ul class="seat-area couple">
+                    <li class="seat-line">
+                        <ul class="seat--area">
+                            <li class="front-seat">
+                                {{#each screenLayout.prime }}
+                                <ul>
+                                    {{#each this }}
+                                    {{#ifCond this.status '==' 'available' }}
+                                    <li data-type="prime" data-value="{{ this.actualSeat }}"
+                                        data-display="{{ this.seatDisplay }}" class="rounded single-seat btn_available_seat">
+                                        <img src="/user_assets/images/movie/seat01.png" alt="seat">
+                                        {{ this.seatDisplay }}
+                                    </li>
+
+                                    {{/ifCond }}
+
+                                    {{#ifCond this.status '==' 'booked' }}
+                                    <li class="single-seat">
+                                        <img src="/user_assets/images/movie/seat01-free.png"
+                                            alt="seat-{{ this.seatDisplay }}">
+                                        {{ this.seatDisplay }}
+                                    </li>
+                                    {{/ifCond }}
+                                    {{/each }}
+                                </ul>
+                                {{/each }}
+
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            {{/if }}
+
+            {{#if screenLayout.classic_plus }}
+            <h5 class="subtitle">
+                Classic Plus Seats - Rs. {{ screenDetail.classic_plus_price }} /-
+            </h5>
+
+            <div class="screen-wrapper">
+                <ul class="seat-area couple">
+                    <li class="seat-line">
+                        <ul class="seat--area">
+                            <li class="front-seat">
+                                {{#each screenLayout.classic_plus }}
+                                <ul>
+                                    {{#each this }}
+                                    {{#ifCond this.status '==' 'available' }}
+                                    <li data-type="classic_plus" data-value="{{ this.actualSeat }}"
+                                        data-display="{{ this.seatDisplay }}" class="rounded single-seat btn_available_seat">
+                                        <img src="/user_assets/images/movie/seat01.png" alt="seat">
+                                        {{ this.seatDisplay }}
+                                    </li>
+
+                                    {{/ifCond }}
+
+                                    {{#ifCond this.status '==' 'booked' }}
+                                    <li class="single-seat">
+                                        <img src="/user_assets/images/movie/seat01-free.png"
+                                            alt="seat-{{ this.seatDisplay }}">
+                                        {{ this.seatDisplay }}
+                                    </li>
+                                    {{/ifCond }}
+                                    {{/each }}
+                                </ul>
+                                {{/each }}
+
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            {{/if }}
+
+            {{#if screenLayout.classic }}
+            <h5 class="subtitle">
+                Classic Seats - Rs. {{ screenDetail.classic_price }} /-
+            </h5>
+
+            <div class="screen-wrapper">
+                <ul class="seat-area couple">
+                    <li class="seat-line">
+                        <ul class="seat--area">
+                            <li class="front-seat">
+                                {{#each screenLayout.classic }}
+                                <ul>
+                                    {{#each this }}
+                                    {{#ifCond this.status '==' 'available' }}
+                                    <li data-type="classic" data-value="{{ this.actualSeat }}"
+                                        data-display="{{ this.seatDisplay }}" class="rounded single-seat btn_available_seat">
+                                        <img src="/user_assets/images/movie/seat01.png" alt="seat">
+                                        {{ this.seatDisplay }}
+                                    </li>
+
+                                    {{/ifCond }}
+
+                                    {{#ifCond this.status '==' 'booked' }}
+                                    <li class="single-seat">
+                                        <img src="/user_assets/images/movie/seat01-free.png"
+                                            alt="seat-{{ this.seatDisplay }}">
+                                        {{ this.seatDisplay }}
+                                    </li>
+                                    {{/ifCond }}
+                                    {{/each }}
+                                </ul>
+                                {{/each }}
+
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            {{/if }}
+
+            <h4 class="screen">screen</h4>
+            <div class="screen-thumb">
+                <img src="/user_assets/images/movie/screen-thumb.png" alt="movie">
+            </div>
+
+        </div>
+        <div class="proceed-book bg_img" data-background="/user_assets/images/movie/movie-bg-proceed.jpg">
+            <div class="proceed-to-book">
+                <div class="book-item">
+                    <span>You have Choosed Seat</span>
+                    <h3 class="selected_seat_display title"></h3>
+                </div>
+                <div class="book-item">
+                    <form method="POST" action="/booking/{{ movieId }}/{{ mappingId}}/{{ date}}">
+                        <input type="hidden" id="seat_count_in" value="{{ seat_count }}">
+                        <input type="hidden" name="remaining_minutes" id="remaining_minutes">
+                        <input type="hidden" name="remaining_seconds" id="remaining_seconds">
+                        <div class="actual_seat_div d-none"></div>
+                        <div class="display_seat_div d-none"></div>
+                        <div class="row ms-5 me-5">
+                            <button type="submit" style="display:none;"
+                                class="btn btn-success btn-lg btn-block me-3 ms-3 custom-button btn_go_pay">Go to
+                                payment</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,69 @@
+{{#each movies }}
+<div class="movie-list">
+    <div class="movie-thumb c-thumb">
+        {{#if posterFinalFile }}
+        <a href="/movie_info/{{ this.movieDetails._id }}/{{ this.movieDetails.api_movie_id }}"
+            class="w-100 bg_img h-100" data-background="{{ posterFinalFile }}">
+            {{else }}
+            <a href="/movie_info/{{ this.movieDetails._id }}/{{ this.movieDetails.api_movie_id }}"
+                class="w-100 bg_img h-100"
+                data-background="https://image.tmdb.org/t/p/w500{{ this.movieDetails.poster_path }}">
+
+                {{/if }}
+
+                {{#if posterFinalFile }}
+                <img class="d-sm-none" src="{{ posterFinalFile }}" alt="Movie">
+                {{else }}
+                <img class="d-sm-none" src="https://image.tmdb.org/t/p/w500{{ this.movieDetails.poster_path }}"
+                    alt="Movie">
+                {{/if }}
+            </a>
+    </div>
+    <div class="movie-content bg-one">
+        <h5 class="title">
+            <a href="movie-details.html">{{ this.movieDetails.original_title }}</a>
+        </h5>
+        <p class="duration">{{ this.movieDetails.tagline }}</p>
+        <div class="movie-tags">
+            {{#ifCond this.movieDetails.api_movie_id '==' '0' }}
+                {{#each this.movieDetails.genres }}
+                <a href="#0">{{ this }}</a>
+                {{/each }}
+            {{/ifCond }}
+
+            {{#ifCond this.movieDetails.api_movie_id '!=' '0' }}
+                {{#each this.movieDetails.genres }}
+                <a href="#0">{{ this.name }}</a>
+                {{/each }}
+            {{/ifCond }}
+            
+        </div>
+        <div class="release">
+            <span>Release Date : </span> <a href="#0"> {{#splitDate
+                this.movieDetails.release_date }} {{/splitDate }}</a>
+        </div>
+        <ul class="movie-rating-percent">
+            <li>
+                <div class="thumb">
+                    <img src="/user_assets/images/movie/tomato.png" alt="movie">
+                </div>
+                <span class="content">{{ this.movieDetails.vote_average }} / 10</span>
+            </li>
+            <li>
+                <div class="thumb">
+                    <img src="/user_assets/images/movie/cake.png" alt="movie">
+                </div>
+                <span class="content">{{ this.movieDetails.runtime }} minutes</span>
+            </li>
+        </ul>
+        <div class="book-area">
+            <div class="book-ticket">
+                <div class="react-item mr-auto">
+                    <span>Language : {{ this.movieDetails.original_language }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{/each }}

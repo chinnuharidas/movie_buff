@@ -1,0 +1,150 @@
+<script>
+    $(function () {
+        //-------------
+        //- DONUT CHART -
+        //-------------
+        // Get context with jQuery - using jQuery's .get() method.
+        $.ajax({
+            url: '/admin/chart',
+            method: 'POST',
+            success: function (response) {
+                var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
+                var donutData = {
+                    labels: response.movieNameArr,
+                    datasets: [
+                        {
+                            data: response.totalRevenueArr,
+                            backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+                        }
+                    ]
+                }
+
+                var donutOptions = {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                }
+
+                new Chart(donutChartCanvas, {
+                    type: 'doughnut',
+                    data: donutData,
+                    options: donutOptions
+                })
+
+                var areaChartData = {
+                    labels: ["January", "February", "March", "April", "May", "June",
+                        "July", "August", "September", "October", "November", "December"],
+                    datasets: [
+                        {
+                            label: 'Monthly Revenue',
+                            backgroundColor: 'rgba(60,141,188,0.9)',
+                            borderColor: 'rgba(60,141,188,0.8)',
+                            pointRadius: false,
+                            pointColor: '#3b8bba',
+                            pointStrokeColor: 'rgba(60,141,188,1)',
+                            pointHighlightFill: '#fff',
+                            pointHighlightStroke: 'rgba(60,141,188,1)',
+                            data: response.yearArray
+                        },
+                        ,
+                    ]
+                }
+
+                //-------------
+                //- BAR CHART -
+                //-------------
+                var barChartCanvas = $('#barChart').get(0).getContext('2d')
+                var barChartData = $.extend(true, {}, areaChartData)
+                var temp0 = areaChartData.datasets[0]
+                barChartData.datasets[0] = temp0
+
+                var barChartOptions = {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    datasetFill: false
+                }
+
+                new Chart(barChartCanvas, {
+                    type: 'bar',
+                    data: barChartData,
+                    options: barChartOptions
+                })
+
+                //-------------
+                //- PIE CHART -
+                //-------------
+                // Get context with jQuery - using jQuery's .get() method.
+                var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
+
+                var pieData = {
+                    labels: response.screenNameArr,
+                    datasets: [
+                        {
+                            data: response.screenWiseRevenueArr,
+                            backgroundColor: [
+                                '#d2d6de', 
+                                '#f56954', 
+                                '#01a65a', 
+                                '#f39c12', 
+                                '#00c0ef', 
+                                '#3c8dbc',
+                                '#c11818'
+                            ],
+                        }
+                    ]
+                }
+                
+                var pieOptions = {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                }
+
+                //Create pie or douhnut chart
+                // You can switch between pie and douhnut using the method below.
+                new Chart(pieChartCanvas, {
+                    type: 'pie',
+                    data: pieData,
+                    options: pieOptions
+                })
+
+
+                //-------------
+                //- BAR CHART -
+                //-------------
+
+                var areaChartData2 = {
+                    labels: response.tr_theatreArr,
+                    datasets: [
+                        {
+                            label: 'Monthly Revenue',
+                            backgroundColor: 'rgba(60,141,188,0.9)',
+                            borderColor: 'rgba(60,141,188,0.8)',
+                            pointRadius: false,
+                            pointColor: '#3b8bba',
+                            pointStrokeColor: 'rgba(60,141,188,1)',
+                            pointHighlightFill: '#fff',
+                            pointHighlightStroke: 'rgba(60,141,188,1)',
+                            data: response.tr_revenueArr
+                        },
+                    ]
+                }
+
+                var barChartCanvas2 = $('#barChart2').get(0).getContext('2d')
+                var barChartData2 = $.extend(true, {}, areaChartData2)
+                var temp0 = areaChartData2.datasets[0]
+                barChartData2.datasets[0] = temp0
+
+                var barChartOptions2 = {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    datasetFill: false
+                }
+
+                new Chart(barChartCanvas2, {
+                    type: 'bar',
+                    data: barChartData2,
+                    options: barChartOptions2
+                })
+            }
+        })
+    })
+</script>

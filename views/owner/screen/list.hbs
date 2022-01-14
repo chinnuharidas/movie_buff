@@ -1,0 +1,108 @@
+
+    <div class="wrapper">
+        <div class="content-wrapper">
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>Screens</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+                                <li class="breadcrumb-item active">
+                                    Screens - List
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+
+                            {{#if errorMsg }}
+                            <div class="card card-danger">
+                                <div class="card-header">
+                                    <h3 class="card-title">Error</h3>
+
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    {{ errorMsg }}
+                                </div>
+                            </div>
+                            {{/if }}
+
+                            {{#if successMsg }}
+                            <div class="card card-success">
+                                <div class="card-header">
+                                    <h3 class="card-title">Success</h3>
+
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    {{ successMsg }}
+                                </div>
+                            </div>
+                            {{/if }}
+
+                            <div class="card">
+                                <div class="col-md-12 mt-3">
+                                    <a href="/owner/screen/add" class="btn btn-success float-right">Add Screen</a>
+                                </div>
+                                <div class="card-body">
+                                    <table id="example2" class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Name</th>
+                                                <th>Rows</th>
+                                                <th>Columns</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {{#each theatres }}
+                                            <tr class="rec{{ this._id }}">
+                                                <td>{{inc @index}}</td>
+                                                <td>{{ this.name }}</td>
+                                                <td>{{this.rows }}</td>
+                                                <td>{{ this.columns }}</td>
+                                                <td>
+                                                    {{#if this.isEnabled }}
+                                                    <span class="text-uppercase badge badge-success">Enabled</span>
+                                                    {{else }}
+                                                    <span class="text-uppercase badge badge-danger">Disabled</span>
+                                                    {{/if }}
+                                                </td>
+                                                <td>
+                                                    <a href="/owner/screen/edit/{{ this._id }}" class="btn btn-primary">Edit</a>
+                                                    {{#if this.isEnabled }}
+                                                    <button data-id="{{ this._id }}" data-message="Disabling screen will disable it's screen time." data-actionpath="/owner/screen/disable/{{ this._id }}" class="btn btn-secondary swal-confirm">Disable</button>
+                                                    {{else }}
+                                                    <button data-id="{{ this._id }}" data-actionpath="/owner/screen/enable/{{ this._id }}" class="btn btn-success swal-confirm">Enable</button>
+                                                    {{/if }}
+                                                </td>
+                                            </tr>
+                                            {{/each }}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>

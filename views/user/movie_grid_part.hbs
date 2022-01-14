@@ -1,0 +1,37 @@
+{{#each movies }}
+<div class="col-sm-6 col-lg-4">
+    <div class="movie-grid">
+        <div class="movie-thumb c-thumb">
+            <a href="/movie_info/{{ this.movieDetails._id }}/{{ this.movieDetails.api_movie_id }}">
+                {{#if posterFinalFile }}
+                <img class="img-poster" src="{{ posterFinalFile }}" alt="Movie">
+                {{else }}
+                <img class="img-poster" src="https://image.tmdb.org/t/p/w500{{ this.movieDetails.poster_path }}"
+                    alt="Movie">
+                {{/if }}
+            </a>
+        </div>
+        <div class="movie-content bg-one">
+            <h5 class="title m-0">
+                <a href="/movie_info/{{ this.movieDetails._id }}/{{ this.movieDetails.api_movie_id }}">
+                    {{ this.movieDetails.original_title }}
+                </a>
+            </h5>
+            <ul class="movie-rating-percent">
+                <li>
+                    <div class="thumb">
+                        <img src="/user_assets/images/movie/tomato.png" alt="movie">
+                    </div>
+                    <span class="content">{{ this.movieDetails.vote_average }}</span>
+                </li>
+                <li>
+                    <div class="thumb">
+                        <img src="/user_assets/images/movie/cake.png" alt="movie">
+                    </div>
+                    <span class="content">{{ this.movieDetails.runtime }} minutes</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{{/each }}

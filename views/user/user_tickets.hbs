@@ -1,0 +1,135 @@
+<section class="banner-section">
+    <div class="banner-bg bg_img bg-fixed" data-background="/user_assets/images/banner/banner02.jpg"></div>
+    <div class="container">
+        <div class="banner-content">
+            <h1 class="title bold">get <span class="color-theme">movie</span> tickets</h1>
+            <p>
+                View your booking history
+            </p>
+
+            {{#if tickets }}
+            {{else }}
+                <h4 class="row p-5 error text-danger">
+                    No bookings found ....!
+                </h4>
+            {{/if }}
+        </div>
+    </div>
+</section>
+
+{{#if tickets }}
+<section class="movie-section padding-top padding-bottom">
+    <div class="container">
+        <div class="row flex-wrap-reverse justify-content-center">
+            <div class="col-lg-12 mb-50 mb-lg-0">
+                <div class="filter-tab tab">
+                    <div class="tab-area">
+                        <div class="tab-item active">
+                            <div class="movie-area mb-10">
+                                {{#each tickets }}
+                                <div class="movie-list">
+                                    <div class="movie-thumb c-thumb">
+                                        {{#each this.movieDetails.images.posters }}
+                                        {{#if @index }}
+                                        {{else }}
+                                        <a href="/get_ticket_details/{{ ../this._id }}" class="w-100 bg_img h-100"
+                                            data-background="https://image.tmdb.org/t/p/w500{{ this.file_path }}">
+                                            <img class="d-sm-none"
+                                                src="https://image.tmdb.org/t/p/w500{{ this.file_path }}" alt="movie">
+                                        </a>
+                                        {{/if }}
+                                        {{/each }}
+                                    </div>
+                                    <div class="movie-content bg-one">
+                                        <h5 class="title">
+                                            {{ movieDetails.original_title }}
+                                        </h5>
+                                        <p class="duration">{{ movieDetails.runtime }} minutes</p>
+                                        <div class="movie-tags">
+                                            {{#each movieDetails.genres }}
+                                            <a href="#0">{{ this.name }}</a>
+                                            {{/each }}
+                                        </div>
+                                        <div class="release">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <span>Show Time: </span>
+                                                    <a href="#0">
+                                                        {{#splitDate this.date }} {{/splitDate}},
+                                                        {{#splitTime this.mappingDetails.start_time }}
+                                                        {{/splitTime }}
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span>
+                                                        {{ this.theatreDetails.name }},
+                                                        {{ this.screenDetails.name }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <ul class="movie-rating-percent">
+
+                                            <li>
+                                                <div class="thumb">
+                                                    <img src="/user_assets/images/movie/seat01.png" alt="Seats">
+                                                </div>
+                                                <span class="content">
+
+                                                    {{#each this.display_seats }}
+                                                    {{#if @index }}
+                                                    ,
+                                                    {{else }}
+                                                    {{/if }}
+                                                    {{ this }}
+                                                    {{/each }}
+                                                </span>
+                                            </li>
+                                        </ul>
+                                        <div class="book-area">
+                                            <div class="book-ticket">
+                                                <div class="react-item mr-auto">
+                                                    <a target="_blank" href="/get_ticket_details/{{ this._id }}">
+                                                        <div class="thumb">
+                                                            <img src="/user_assets/images/icons/book.png" alt="icons">
+                                                        </div>
+                                                        <span>View ticket</span>
+                                                    </a>
+                                                </div>
+                                                <div class="react-item">
+                                                    <a target="_blank" href="/ticket_download/{{ this._id }}" class="popup-video">
+                                                        <div class="thumb">
+                                                            <img src="/user_assets/images/icons/download.jpg"
+                                                                alt="Download">
+                                                        </div>
+                                                        <span>Download</span>
+                                                    </a>
+                                                </div>
+
+                                                <div class="react-item">
+                                                    <span>
+                                                        {{#ifCond this.date_int '===' ../currentDate }}
+                                                        Upcoming
+                                                        {{/ifCond }}
+
+                                                        {{#ifCond this.date_int '>' ../currentDate }}
+                                                        Upcoming
+                                                        {{/ifCond }}
+
+                                                        {{#ifCond this.date_int '<' ../currentDate }} Over {{/ifCond }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{/each }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{{/if }}

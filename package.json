@@ -1,0 +1,37 @@
+{
+  "name": "week-8",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "crypto": "^1.0.1",
+    "debug": "~2.6.9",
+    "dotenv": "^10.0.0",
+    "express": "~4.16.1",
+    "express-handlebars": "^6.0.2",
+    "express-session": "^1.17.2",
+    "google-map-marker": "^1.2.3",
+    "handlebars-dateformat": "^1.1.1",
+    "hbs": "^4.2.0",
+    "html-pdf": "^3.0.1",
+    "http-errors": "~1.6.3",
+    "image-size": "^1.0.0",
+    "isodate": "^0.1.4",
+    "mongodb": "^4.2.1",
+    "morgan": "~1.9.1",
+    "movie-trailer": "^2.1.0",
+    "moviedb": "^0.2.10",
+    "moviedb-promise": "^1.2.7",
+    "multer-gridfs-storage": "^5.0.2",
+    "nodemailer": "^6.7.2",
+    "nodemailer-express-handlebars": "^4.0.0",
+    "paypal-rest-sdk": "^1.8.1",
+    "qrcode": "^1.5.0",
+    "razorpay": "^2.8.0",
+    "timepicker": "^1.13.18",
+    "twilio": "^3.71.3"
+  }
+}

@@ -1,0 +1,83 @@
+<div class="container">
+    <div class="row m-3">
+        <div class="col-md-12">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-center" colspan="2">Movie Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th>Movie Name</th>
+                    <td>{{ movie.original_title }}</td>
+                </tr>
+                <tr>
+                    <th>Language</th>
+                    <td>{{ movie.original_language }}</td>
+                </tr>
+                <tr>
+                    <th>Overview</th>
+                    <td>{{ movie.overview }}</td>
+                </tr>
+                <tr>
+                    <th>Release Date</th>
+                    <td>{{ movie.release_date }}</td>
+                </tr>
+                <tr>
+                    <th>Poster</th>
+                    <td>
+                        {{#if movie.backdrop_path }}
+                        <img class="img-poster" src="https://image.tmdb.org/t/p/w500{{ movie.backdrop_path }}">
+                        {{/if }}
+
+                        {{#if movie.posterUploaded }}
+                        <img class="img-poster" src="{{ movie.posterUploaded }}">
+                        {{/if }}
+
+                    </td>
+                </tr>
+                <tr>
+                    <th>Backdrop</th>
+                    <td>
+                        {{#if movie.backdropUploaded }}
+                        <img class="img-poster" src="{{ movie.backdropUploaded }}">
+                        {{/if }}
+                    </td>
+                </tr>
+                </tbody>
+                </table>
+
+                {{#if movie.credits }}
+                <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-center" colspan="4">Cast Details</th>
+                    </tr>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Profile</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {{#each movie.credits.cast }}
+                <tr>
+                    <td>{{ inc @index }}</td>
+                    <td>{{this.name}}</td>
+                    <td>{{ this.known_for_department }}</td>
+                    <td>
+                        {{#if this.profile_path }}
+                        <img class="img-poster" src="https://image.tmdb.org/t/p/w500{{ profile_path }}">
+                        {{/if }}
+                    </td>
+                </tr>
+                {{/each }}
+                </tbody>
+                </table>
+                {{/if }}
+            </table>
+        </div>
+    </div>
+</div>

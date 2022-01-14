@@ -1,0 +1,65 @@
+
+    <section class="banner-section">
+        <div class="banner-bg bg_img bg-fixed" data-background="https://image.tmdb.org/t/p/w500{{ booking.movieDetails.poster_path }}"></div>
+        
+        <div class="container">
+            <div class="banner-content">
+                <h1 class="title bold">Movie <span class="color-theme">Ticket</span></h1>
+                <p>
+                    View your ticket
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="apps-seciton padding-top pt-lg-0">
+        <div class="container">
+            <div class="apps-wrapper bg-six padding-top padding-bottom">
+                <div class="bg_img apps-bg" data-background="{{ booking.qrCode }}"></div>
+                
+                <div class="row">
+                    <div class="col-lg-7 offset-lg-5" style="padding-top: 100px;">
+                        <div class="section-header-3" style="margin-top: 0px;">
+                            <h2 class="title">{{ booking.movieDetails.title }}</h2>
+                        </div>
+                        <div class="content">
+                            <h5 class="title">
+                                Theatre - {{ booking.theatreDetails.name }}, {{ booking.screenDetails.name }}
+                            </h5>
+
+
+                             <h5 class="title">
+                                    Seats : 
+                                    {{#each booking.display_seats }}
+                                    {{#if @index }}
+                                    ,
+                                    {{else }}
+                                    {{/if }}
+                                    {{ this }}
+                                    {{/each }}
+                            </h5>
+
+                            <h5 class="title">
+                                Show Time : 
+                                {{#splitDate booking.date }} {{/splitDate}},
+                                    {{#splitTime booking.mappingDetails.start_time }}
+                                    {{/splitTime }}
+                            </h5>
+
+                            <h5 class="title">
+                                {{#ifCond booking.date_int '===' currentDate }}
+            Upcoming
+            {{/ifCond }}
+
+            {{#ifCond booking.date_int '>' currentDate }}
+            Upcoming
+            {{/ifCond }}
+
+            {{#ifCond booking.date_int '<' currentDate }} Over {{/ifCond }}
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>

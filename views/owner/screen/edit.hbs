@@ -1,0 +1,123 @@
+<div class="wrapper">
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Screens</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="/owner">Home</a></li>
+                            <li class="breadcrumb-item active">
+                                Screens - Edit
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <form id="screenForm" method="POST" action="/owner/screen/edit/{{ screen._id }}">
+                                    <div class="row text-danger"><div class="col-md-12 text-center error"></div></div>
+                                    <div class="row">
+                                        <div class="col-md-4 form-group">
+                                            <label for="name">Screen Name</label>
+                                            <input type="text" name="name" id="name" value="{{ screen.name }}" class="form-control">
+                                        </div>
+                                        <div class="col-md-4 form-group">
+                                            <label for="rows">Rows</label>
+                                            <input type="number" name="rows" id="rows" value="{{ screen.rows }}" class="form-control row_colums_change">
+                                        </div>
+                                        <div class="col-md-4 form-group">
+                                            <label for="columns">Columns</label>
+                                            <input type="number" name="columns" id="columns" value="{{ screen.columns }}" class="form-control row_colums_change">
+                                        </div>
+                                        <div class="col-md-3 form-group">
+                                            <label for="columns">Recliner Rows</label>
+                                            <input type="number" name="recliner" id="recliner" value="{{ screen.recliner }}" class="form-control row_colums_change">
+                                        </div>
+                                        <div class="col-md-3 form-group">
+                                            <label for="columns">Prime Rows</label>
+                                            <input type="number" name="prime" id="prime" value="{{ screen.prime }}" class="form-control row_colums_change">
+                                        </div>
+                                        <div class="col-md-3 form-group">
+                                            <label for="columns">Classic Plus Rows</label>
+                                            <input type="number" name="classic_plus" id="classic_plus" value="{{ screen.classic_plus }}" class="form-control row_colums_change">
+                                        </div>
+                                        <div class="col-md-3 form-group">
+                                            <label for="columns">Classic Rows</label>
+                                            <input type="number" name="classic" id="classic" value="{{ screen.classic }}" class="form-control row_colums_change">
+                                        </div>
+
+
+                                        <div class="col-md-3 form-group">
+                                            <label for="columns">Recliner Price</label>
+                                            <input type="number" name="recliner_price" id="recliner_price" value="{{ screen.recliner_price }}" class="form-control">
+                                        </div>
+                                        <div class="col-md-3 form-group">
+                                            <label for="columns">Prime Price</label>
+                                            <input type="number" name="prime_price" id="prime_price" value="{{ screen.prime_price }}" class="form-control">
+                                        </div>
+                                        <div class="col-md-3 form-group">
+                                            <label for="columns">Classic Plus Price</label>
+                                            <input type="number" name="classic_plus_price" id="classic_plus_price" value="{{ screen.prime_price }}" class="form-control">
+                                        </div>
+                                        <div class="col-md-3 form-group">
+                                            <label for="columns">Classic Price</label>
+                                            <input type="number" name="classic_price" id="classic_price" value="{{ screen.classic_price }}" class="form-control">
+                                        </div>
+
+
+                                        <div class="col-md-3 add_deleted_screens d-none">
+                                            {{#each screen.deleted }}
+                                            <input type="hidden" name="deleted[]" value="{{ this }}" id="id_{{ this }}" >
+                                            {{/each }}
+                                        </div>
+
+                                    </div>
+
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Seating Arrangement</h3>
+
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                                    title="Collapse">
+                                                    <i class="fas fa-minus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body table-responsive">
+                                            <table class="table table-bordered">
+                                                <tbody class="screen_seat_tbl">
+
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button type="reset"
+                                                class="btn btn-secondary ml-2 float-right">Reset</button>
+                                            <button type="submit" onclick="return validateScreenForm()"
+                                                class="btn btn-primary ml-2 float-right">Save</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

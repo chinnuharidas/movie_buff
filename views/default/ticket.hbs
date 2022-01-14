@@ -1,0 +1,77 @@
+<table>
+    <thead>
+        <tr>
+            <td style="color:green;text-align:center;">
+                <h5>Your booking is confirmed !</h5>
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align:center;">
+                Booking ID : {{ bookingId }}
+            </td>
+        </tr>
+    </thead>
+</table>
+
+<table style="margin-top: 1em;">
+    <thead>
+        <tr>
+            <td rowspan="5" style="width:25%">
+                <img style="width:100%;" src="https://image.tmdb.org/t/p/w500{{ booking.movieDetails.poster_path }}">
+            </td>
+            <td class="text-right">
+                <h3>{{ booking.movieDetails.title }}</h3>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{#splitDate booking.date }} {{/splitDate}},
+                {{#splitTime booking.mappingDetails.start_time }}
+                {{/splitTime }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ booking.theatreDetails.name }},
+                <br />
+                {{ booking.theatreDetails.location }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{#each booking.display_seats }}
+                {{#if @index }}
+                ,
+                {{else }}
+                {{/if }}
+                {{ this }}
+                {{/each }}
+            </td>
+        </tr>
+    </thead>
+</table>
+
+<hr />
+
+
+<table>
+    <tr>
+        <td style="width: 20%;text-align:center;">{{ totalSeats }} Seats</td>
+        <td style="width: 80%;text-align:center;">{{ booking.screenDetails.name }}</td>
+    </tr>
+</table>
+
+<hr />
+
+<table>
+    <tr>
+        <td style="text-align:center;">
+            <img style="margin-left:8em;text-align:center;" src="{{ booking.qrCode }}">
+        </td>
+    </tr>
+    <tr>
+        <td style="padding-left:6em;text-align:center;">
+            Booking ID : {{ bookingId }}
+        </td>
+    </tr>
+</table>

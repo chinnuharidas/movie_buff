@@ -1,0 +1,124 @@
+<div class="card card-outline card-primary mt-5">
+    <div class="card-header text-center">
+        <a href="/owner/login" class="h1"><b>Theatre</b>Owner</a>
+    </div>
+    <div class="card-body">
+        <p class="login-box-msg">Sign Up</p>
+
+        {{#if successMsg }}
+        <div class="card card-success">
+            <div class="card-header">
+                <h3 class="card-title">Success</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                {{ successMsg }}
+            </div>
+        </div>
+        {{/if }}
+
+        {{#if errorMsg }}
+        <div class="card card-danger">
+            <div class="card-header">
+                <h3 class="card-title">Error</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                {{ errorMsg }}
+            </div>
+        </div>
+        {{/if }}
+
+
+        <form id="ownerSignUp" action="/owner/getotp" method="post">
+            <div class="row">
+
+                <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <div class="form-group">
+                        <label for="name">Theatre Name</label>
+                        <input name="name" id="name" type="text" class="form-control" placeholder="Enter Theatre Name">
+                    </div>
+                </div>
+      
+                <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <div class="form-group">
+                        <label for="district">District</label>
+                        <select name="district" class="select2 form-control form-control-lg">
+                            <option value="">Select District</option>
+                            {{#each districts}}
+                            <option value="{{ this._id }}">{{ this.district_name }}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <input name="location" id="location" type="text" class="form-control" placeholder="Enter Location">
+                    </div>
+                </div>
+
+                <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <div class="form-group">
+                        <label for="owner_name">Owner Name</label>
+                        <input name="owner_name" type="text" class="form-control" id="owner_name" placeholder="Enter Owner Name">
+                    </div>
+                </div>
+                
+                <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <div class="form-group">
+                        <label for="owner_email">Email address</label>
+                        <input name="owner_email" type="email" class="form-control" id="owner_email" placeholder="Enter email">
+                    </div>
+                </div>
+
+                <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <div class="form-group">
+                        <label for="owner_mobile">Mobile</label>
+                        <input name="owner_mobile" type="text" class="form-control" id="owner_mobile" placeholder="Enter Mobile">
+                    </div>
+                </div>
+
+                <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <div class="form-group">
+                        <label for="lat">Latitude</label>
+                        <input name="lat" type="text" class="form-control" id="lat" placeholder="Enter Latitude of Location">
+                    </div>
+                </div>
+
+                <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <div class="form-group">
+                        <label for="lng">Latitude</label>
+                        <input name="lng" type="text" class="form-control" id="lng" placeholder="Enter Longitude of Location">
+                    </div>
+                </div>
+
+                <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+                    </div>
+                </div>
+
+                <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" name="confirmpassword" class="form-control" id="confirmpassword" placeholder="Confirm Password">
+                    </div>
+                </div>
+                
+                <button type="submit" onclick="return validateOwnerSignUpForm()" class="btn btn-primary btn-block">Sign Up</button>
+                <a href="/owner/login" class="btn btn-info btn-block">Already have account? Log In</a>
+            </div>
+        </form>
+    </div>
+</div>

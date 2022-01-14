@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{{ title }}</title>
+
+	{{#if isUser }}
+	{{>user-css}}
+	{{else }}
+	{{>owner-admin-css}}
+	{{/if }}
+
+</head>
+
+{{#if isAdminLogin }}
+
+<body class="hold-transition login-page">
+	{{else }}
+	{{#if isOwnerLogin }}
+
+	<body>
+		{{else}}
+		{{#if isUser }}
+
+		<body class="user-body">
+			{{else }}
+
+			<body class="hold-transition sidebar-mini">
+				{{/if }}
+				{{/if}}
+				{{/if}}
+
+				{{#if isAdminLogin }}
+				<div class="login-box">
+					{{else }}
+					{{#if isOwnerLogin }}
+					<div class="container">
+						{{else }}
+						{{#if isUser }}
+						{{else }}
+						<div class="wrapper">
+							{{/if }}
+							{{/if}}
+							{{/if}}
+
+							{{#if isAdmin }}
+							{{>admin-header}}
+							{{/if }}
+
+							{{#if isOwner }}
+							{{>owner-header}}
+							{{/if }}
+
+							{{#if isUser }}
+							{{>user-header}}
+							{{/if }}
+
+
+							{{{ body }}}
+
+
+							{{#if isAdmin }}
+							{{>admin-footer}}
+							{{/if }}
+
+							{{#if isUser }}
+							{{>user-footer}}
+							{{/if }}
+
+							{{#if isUser}}
+							{{else }}
+						</div>
+						{{/if }}
+
+						<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+							aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+
+								</div>
+							</div>
+						</div>
+
+
+						<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
+							aria-labelledby="myLargeModalLabel" aria-hidden="true">
+							<div class="modal-dialog modal-lg">
+								<div class="modal-content big_modal">
+									...
+								</div>
+							</div>
+						</div>
+
+						<div class="modal fade" id="review-modal" tabindex="-1" role="dialog" aria-labelledby="review-modal-label" aria-hidden="true">
+						<div class="modal-dialog" style="width:45%" role="document">
+						<div class="modal-content" id="review-modal-content">
+
+							<div class="modal-header">
+								<h5 class="modal-title user-modal-title" id="exampleModalLabel">
+									How was the movie ?</h5>
+							</div>
+							<form style="color:black;" id="reviewForm" action="/submit-review" method="GET">
+								<div class="modal-body">
+										<input id="hidden_movieId" type="hidden" name="movie">
+										<div class="form-group wrapper-slider">
+											<input name="rating" type="range" min="0" max="5" step="0.1" unit='❤'>
+										</div>
+								
+										<div class="form-group mt-5">
+											<label for="title" class="col-form-label">Review Title:</label>
+											<input type="text" name="title" class="form-control" id="title">
+										</div>
+										<div class="form-group">
+											<label for="text" class="col-form-label">Review content:</label>
+											<textarea class="form-control" name="text" id="text"></textarea>
+										</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+									<button type="button" id="review_sbmt_btn" class="btn btn-primary">Submit Review</button>
+								</div>
+							</form>
+						
+						</div>
+						</div>
+						</div>
+
+
+						{{#if isUser }}
+						{{>user-js}}
+						{{else }}
+						{{>owner-admin-js}}
+
+						{{#if isOwner }}
+						{{#if dashboard }}
+						{{>owner-dashboard-js}}
+						{{/if }}
+						{{/if }}
+
+
+						{{#if isAdmin }}
+						{{#if dashboard }}
+						{{>admin-dashboard-js}}
+						{{/if }}
+						{{/if }}
+
+
+
+
+
+
+
+						{{/if }}
+
+
+			</body>
+
+
+			<script>
+
+				$('.btn_location_icon').click(function () {
+					var lat = $(this).data('lat')
+					var lng = $(this).data('lng')
+					var name = $(this).data('name');
+					$('#exampleModal .modal-content').html(`
+				<div class="row">
+				<div class="col-md-12 mb-2 mt-2">
+				<a target="_blank" href="http://www.google.com/maps/place/${lat},${lng}" class="btn btn-primary float-right mr-2 ml-2 me-2 ms-2">
+				Get Direction
+				</a>
+				</div>
+				</div>
+                <div class="row">
+                <div class="col-md-12 modal_body_map">
+                <div class="location-map" id="location-map">
+                <div style="width: 600px; height: 400px;" id="map_canvas"></div>
+                </div>
+                </div>
+                </div>`);
+
+					var script = document.createElement('script');
+					script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDtEcjzk3KXPz4wh-RrHEDOcPwsHE_qwHo&callback=initMap';
+					script.async = true;
+
+					// Attach your callback function to the `window` object
+					window.initMap = function () {
+						const myLatLng = { lat: lat, lng: lng };
+						const myLatlng2 = new google.maps.LatLng(lat, lng);
+						const map = new google.maps.Map(document.getElementById("map_canvas"), {
+							zoom: 15,
+							center: myLatLng,
+						});
+
+						new google.maps.Marker({
+							position: myLatLng,
+							map,
+							title: name,
+						});
+
+						google.maps.event.trigger(map, "resize");
+						map.setCenter(myLatlng2);
+					};
+
+					// Append the 'script' element to 'head'
+					document.head.appendChild(script);
+
+					$("#location-map").css("width", "100%");
+					$("#map_canvas").css("width", "100%");
+
+					$('#exampleModal').modal('show')
+				});
+			</script>
+
+</html>

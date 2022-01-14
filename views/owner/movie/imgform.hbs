@@ -1,0 +1,20 @@
+<form method="post" id="frmImageUpload" action="/owner/movie/imgupload/{{ movie._id }}" enctype="multipart/form-data">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Movie Image</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Choose file</span>
+            </div>
+            <input required type="file" id="movie_image" name="movie_image" data-id="{{movie._id}}" class='form-control'>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Upload</button>
+    </div>
+</form>

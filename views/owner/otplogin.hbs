@@ -1,0 +1,65 @@
+<div class="card card-outline card-primary mt-5">
+
+    <div class="card-header text-center">
+        <a href="/owner/login" class="h1"><b>Theatre</b>Owner</a>
+    </div>
+    <div class="card-body">
+        <p class="login-box-msg">Sign in to start your session</p>
+
+        {{#if successMsg }}
+        <div class="card card-success">
+            <div class="card-header">
+                <h3 class="card-title">Success</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                {{ successMsg }}
+            </div>
+        </div>
+        {{/if }}
+
+        {{#if errorMsg }}
+        <div class="card card-danger">
+            <div class="card-header">
+                <h3 class="card-title">Error</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                {{ errorMsg }}
+            </div>
+        </div>
+        {{/if }}
+
+
+        <form id="ownerOtpLogin" class="ownerForm" action="/owner/otplogin" method="post">
+            <div class="row">
+                {{#if errorMsg }}
+                <div class="col-lg-12 text-danger text-center">
+                    {{ errorMsg }}
+                </div>
+                {{/if }}
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label for="mobile"></label>
+                        <input name="mobile" class="form-control" type="text" id="mobile" name="mobile"
+                            placeholder="Mobile">
+                        </fieldset>
+                    </div>
+                    <div class="col-lg-12">
+                        <fieldset class="float-end">
+                            <button type="submit" onclick="return validateOwnerOtpLoginForm()" id="form-submit"
+                                class="btn btn-primary">Get OTP</button>
+                        </fieldset>
+                    </div>
+                </div>
+        </form>
+    </div>
+</div>

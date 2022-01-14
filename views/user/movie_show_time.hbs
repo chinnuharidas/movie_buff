@@ -1,0 +1,109 @@
+<section class="window-warning inActive">
+	<div class="lay"></div>
+	<div class="warning-item">
+		<h6 class="subtitle">Welcome! </h6>
+		<h4 class="title">Select Your Seats</h4>
+		<div class="thumb">
+			<img src="/user_assets/images/movie/seat-plan.png" alt="movie">
+		</div>
+		<a href="#" class="custom-button seatPlanButton">Seat Plans<i class="fas fa-angle-right"></i></a>
+	</div>
+</section>
+{{#ifCond movie.api_movie_id '==' 0 }}
+<section class="details-banner hero-area bg_img" data-background="{{ movieImages }}">
+	{{/ifCond }}
+
+	{{#ifCond movie.api_movie_id '!=' 0 }}
+	<section class="details-banner hero-area bg_img"
+		data-background="https://image.tmdb.org/t/p/original{{ movie.backdrop_path }}">
+		{{/ifCond }}
+
+		<div class="container">
+			<div class="details-banner-wrapper">
+				<div class="details-banner-content">
+					<h3 class="title">{{ movie.original_title }}</h3>
+					<div class="tags">
+						<a href="#0">{{ languageName }}</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="book-section bg-one">
+		<div class="container">
+			<form class="ticket-search-form two">
+				<div class="form-group">
+					<div class="thumb">
+						<img src="/user_assets/images/ticket/date.png" alt="ticket">
+					</div>
+					<span class="type">date</span>
+					<select class="select-bar select_movie_date">
+
+						<option value="/movie_show_time/{{ movie._id }}/{{ currentDayJoined }}" {{#ifCond date '=='
+							currentDayJoined }} selected {{/ifCond }} {{#ifCond date '!=' currentDayJoined }} {{/ifCond
+							}}>
+
+							{{#splitShortDate currentDayJoined }}
+							{{/splitShortDate }}
+						</option>
+
+						{{#each datesArr }}
+						<option value="/movie_show_time/{{ ../movie._id }}/{{ this }}" {{#ifCond ../date '==' this }}
+							selected {{/ifCond }} {{#ifCond ../date '!=' this }} {{/ifCond }}>
+							{{#splitShortDate this }}
+							{{/splitShortDate }}
+						</option>
+						{{/each }}
+					</select>
+				</div>
+			</form>
+		</div>
+	</section>
+
+	<div class="ticket-plan-section padding-bottom padding-top">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-lg-12 mb-5 mb-lg-0">
+					<ul class="seat-plan-wrapper bg-five">
+						{{#each theatreMappings }}
+
+						<li>
+							<div class="movie-name">
+								<div class="row">
+									<div class="col-md-10">
+										<a href="/theatre/{{ this.theatreDetails._id }}/{{ ../date }}" class="name">
+											{{ this.theatreDetails.name }}
+										</a>
+									</div>
+									<div class="col-md-2">
+										<div data-lat="{{ this.theatreDetails.lat }}" data-name="{{ this.theatreDetails.name }}" data-lng="{{ this.theatreDetails.lng }}" class="location-icon btn_location_icon">
+											<i class="fas fa-map-marker-alt"></i>
+										</div>
+									</div>
+									<div class="col-md-12">
+										<p>{{ this.theatreDetails.location }}</p>
+									</div>
+								</div>
+							</div>
+							<div class="movie-schedule">
+								{{#each this.shows }}
+								<a class="mr-2 ml-2" href="/seat_layout/{{ ../../movie._id }}/{{ this._id }}/{{ ../../date }}">
+									<div class="item">
+										{{ this.screenDetails.name }}
+										<br />
+										{{#splitTime this.start_time }}
+										{{/splitTime}}
+									</div>
+								</a>
+								{{/each }}
+							</div>
+						</li>
+						{{/each }}
+
+
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>

@@ -1,0 +1,98 @@
+<div class="wrapper">
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Admin Report</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+                            <li class="breadcrumb-item active">
+                                Admin Report
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <form>
+                                <div class="row">
+                                    <div class="col-md-3 form-group">
+                                        <label>Movie</label>
+                                        <select class="select2 form-control" id="report_movie">
+                                            <option value="">Select Movie</option>
+                                            {{#each movies }}
+                                            <option value="{{ this._id }}">
+                                                {{ this.movie_title }}</option>
+                                            {{/each }}
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-3 form-group">
+                                        <label>Screen</label>
+                                        <select class="select2 form-control" id="report_screen">
+                                            <option value="">Select Screen</option>
+                                            {{#each screens }}
+                                            <option value="{{ this._id }}">{{ this.theatreDetails.name }} - {{ this.name }}</option>
+                                            {{/each }}
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-2 form-group">
+                                        <button class="btn btn-primary mt-4 btn_admin_report">Get Report</button>
+                                    </div>
+
+                                </div>
+                                </form>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table id="example1" class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Screen</th>
+                                                    <th>Movie</th>
+                                                    <th>Screen Time</th>
+                                                    <th>Movie Date</th>
+                                                    <th>Seats</th>
+                                                    <th>Amount</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="report_tbody">
+                                                {{#each results }}
+                                                <tr>
+                                                    <td>{{ inc @index }}</td>
+                                                    <td>{{ this.theatreDetails.name }} - {{ this.screenDetails.name }}</td>
+                                                    <td>{{ this.movieDetails.title }}</td>
+                                                    <td>{{ this.mappingDetails.start_time }}</td>
+                                                    <td>{{ this.date }}</td>
+                                                    <td>
+                                                        {{#each this.display_seats }} {{#if @index}},{{/if }}{{ this }} {{/each }}
+                                                    </td>
+                                                    <td>
+                                                        {{ this.totalAmount }}
+                                                    </td>
+                                                </tr>
+                                                {{/each }}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

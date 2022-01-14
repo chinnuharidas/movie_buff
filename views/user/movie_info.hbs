@@ -1,0 +1,270 @@
+{{#ifCond movie.api_movie_id '==' 0 }}
+{{#if movie.backdrop }}
+<section class="details-banner bg_img" data-background="{{ movie.backdrop }}">
+    {{/if }}
+    {{/ifCond }}
+
+    {{#ifCond movie.api_movie_id '!=' 0 }}
+    {{#if movie.backdrop_path }}
+    <section class="details-banner bg_img" data-background="https://image.tmdb.org/t/p/original{{ movie.backdrop_path }}">
+    {{else }}
+    <section class="details-banner bg_img" data-background="https://image.tmdb.org/t/p/original{{ movie.poster_path }}">    
+    {{/if }}
+        {{/ifCond }}
+
+        <div class="container">
+            <div class="details-banner-wrapper">
+                <div class="details-banner-thumb">
+
+
+                    {{#ifCond movie.api_movie_id '==' 0 }}
+                    <img src="{{ movieImages }}" alt="movie">
+                    {{/ifCond }}
+
+                    {{#ifCond movie.api_movie_id '!=' 0 }}
+                    <img src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" alt="movie">
+                    {{/ifCond }}
+
+                    {{#if movie.trailer }}
+                    <a href="http://www.youtube.com/watch?v={{ movie.trailer.key }}" class="video-popup">
+                        <img src="/user_assets/images/movie/video-button.png" alt="movie">
+                    </a>
+                    {{/if }}
+
+                </div>
+                <div class="details-banner-content offset-lg-3">
+                    <h3 class="title">{{ movie.original_title }}</h3>
+                    <div class="tags">
+                        {{#ifCond movie.api_movie_id '==' 0 }}
+                        {{#each movie.genres }}
+                        <a href="#0">
+                            {{ this }}
+                        </a>
+                        {{/each }}
+                        {{/ifCond }}
+
+                        {{#ifCond movie.api_movie_id '!=' 0 }}
+                        {{#each movie.genres }}
+                        <a href="#0">
+                            {{ this.name }}
+                        </a>
+                        {{/each }}
+                        {{/ifCond }}
+                    </div>
+                    <a href="#0" class="button">{{ languageName }}</a>
+                    <div class="social-and-duration">
+                        <div class="duration-area">
+                            <div class="item">
+                                <i class="fas fa-calendar-alt"></i><span>
+                                    {{#splitShortDate movie.release_date }} {{/splitShortDate }}
+                                </span>
+                            </div>
+                            <div class="item">
+                                <i class="far fa-clock"></i><span>{{ movie.runtime }} minutes</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <!-- ==========Banner-Section========== -->
+
+    <!-- ==========Book-Section========== -->
+    <section class="book-section bg-one">
+        <div class="container">
+            <div class="book-wrapper offset-lg-3">
+                <div class="left-side">
+                    <div class="item">
+                        <div class="item-header">
+                           <div class="thumb">
+                                <img src="/user_assets/images/movie/tomato2.png" alt="movie">
+                            </div>
+                            <div class="counter-area">
+                                <span class="counter-item odometer" data-odometer-final="{{ movie.vote_average }}">
+                                    {{ movie.vote_average }}</span>
+                            </div>
+                        </div>
+                        <p>Vote Average</p>
+                    </div>
+                    <div class="item">
+                        <div class="item-header">
+                            <h5 class="title">
+                                {{#if movie.usersRating }}
+                                {{#roundtwo movie.usersRating }} {{/roundtwo }}
+                                {{else }}
+                                0
+                                {{/if }}
+                                </h5>
+                            <div class="rated">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                        </div>
+                        <p>Users Rating</p>
+                    </div>
+                </div>
+
+                {{#if rateEligible }}
+                <a style="cursor:pointer;" data-id="{{ movie._id }}" data-title="{{movie.original_title}}" class="custom-button add_review">
+                    Rate Now
+                </a>
+                {{/if }}
+
+                {{#if upcoming }}
+                {{else }}
+                <a href="/movie_show_time/{{ movie._id }}/{{ date }}" class="custom-button">book tickets</a>
+                {{/if }}
+            </div>
+        </div>
+    </section>
+    <!-- ==========Book-Section========== -->
+
+    <!-- ==========Movie-Section========== -->
+    <section class="movie-details-section padding-top padding-bottom">
+        <div class="container">
+            <div class="row justify-content-center flex-wrap-reverse mb--50">
+                <div class="col-lg-12 mb-50">
+                    <div class="movie-details">
+                        <h3 class="title">photos</h3>
+                        <div class="details-photos owl-carousel">
+                            {{#if movie.images }}
+                            {{#each movie.images.posters }}
+                            <div class="thumb">
+                                <a href="https://image.tmdb.org/t/p/w500{{ this.file_path }}" class="img-pop">
+                                    <img src="https://image.tmdb.org/t/p/w500{{ this.file_path }}" alt="movie">
+                                </a>
+                            </div>
+                            {{/each }}
+                            {{/if }}
+                        </div>
+                        <div class="tab summery-review">
+                            <ul class="tab-menu">
+                                <li class="active">
+                                    summery
+                                </li>
+                                <li>
+                                    user review <span>{{ reviewCount }}</span>
+                                </li>
+                            </ul>
+                            <div class="tab-area">
+                                <div class="tab-item active">
+                                    {{#if movie.overview }}
+                                    <div class="item">
+                                        <h5 class="sub-title">Synopsis</h5>
+                                        <p>{{ movie.overview }}</p>
+                                    </div>
+                                    {{/if }}
+                                    <div class="item">
+                                        <div class="header">
+                                            <h5 class="sub-title">cast</h5>
+                                            <div class="navigation">
+                                                <div class="cast-prev"><i class="flaticon-double-right-arrows-angles"></i></div>
+                                                <div class="cast-next"><i class="flaticon-double-right-arrows-angles"></i></div>
+                                            </div>
+                                        </div>
+                                        <div class="casting-slider owl-carousel">
+
+                                            {{#each credits }}
+                                            {{#if this.profile_path }}
+                                            {{#ifCond this.known_for_department '==' 'Acting' }}
+
+                                            <div class="cast-item">
+                                                <div class="cast-thumb">
+                                                    <a href="#0">
+                                                        <img src="https://image.tmdb.org/t/p/w500{{ this.profile_path }}"
+                                                            alt="cast">
+                                                    </a>
+                                                </div>
+                                                <div class="cast-content">
+                                                    <h6 class="cast-title"><a href="#0">{{ this.original_name }}</a>
+                                                    </h6>
+                                                    <span class="cate">actor</span>
+                                                    {{#if this.character }}
+                                                    <p>As {{ this.character }}</p>
+                                                    {{/if }}
+                                                </div>
+                                            </div>
+                                            {{/ifCond }}
+                                            {{/if }}
+                                            {{/each }}
+                                        </div>
+
+                                    </div>
+                                    <div class="item">
+                                        <div class="header">
+                                            <h5 class="sub-title">crew</h5>
+                                            <div class="navigation">
+                                                <div class="cast-prev-2"><i class="flaticon-double-right-arrows-angles"></i></div>
+                                                <div class="cast-next-2"><i class="flaticon-double-right-arrows-angles"></i></div>
+                                            </div>
+                                        </div>
+                                        <div class="casting-slider-two owl-carousel">
+                                            {{#each crews }}
+                                            {{#if this.profile_path }}
+                                            {{#ifCond this.known_for_department '!==' 'Acting' }}
+                                            <div class="cast-item">
+                                                <div class="cast-thumb">
+                                                    <a href="#0">
+                                                        <img src="https://image.tmdb.org/t/p/w500{{ this.profile_path }}"
+                                                            alt="cast">
+                                                    </a>
+                                                </div>
+                                                <div class="cast-content">
+                                                    <h6 class="cast-title"><a href="#0">{{ this.original_name }}</a>
+                                                    </h6>
+                                                    <span class="cate">{{ this.job }}</span>
+                                                </div>
+                                            </div>
+                                            {{/ifCond }}
+                                            {{/if }}
+                                            {{/each }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-item">
+                                    {{#each reviews }}
+                                    <div class="movie-review-item">
+                                        <div class="author">
+                                            <div class="movie-review-info">
+                                                <span class="reply-date">
+                                                    {{#splitShortDate this.date }}
+                                                    {{/splitShortDate }}
+                                                </span>
+                                                <h6 class="subtitle"><a href="#0">{{ this.userDetails.name }}</a></h6>
+                                                {{#if this.isVerified }}
+                                                <span><i class="fas fa-check"></i> verified review</span>
+                                                {{/if }}
+                                            </div>
+                                        </div>
+                                        <div class="movie-review-content">
+                                            <div class="review">
+                                                {{#times this.rating }}
+                                                <i class="flaticon-favorite-heart-button"></i>
+                                                {{/times }}
+                                            </div>
+                                            <h6 class="cont-title">{{ this.title}}</h6>
+                                            <p>
+                                                {{ this.text }}
+                                            </p>
+                                            <div class="review-meta">
+                                                <a href="#0" class="like_review" data-id="{{ this._id }}" data-action="/review_like/{{ this._id }}">
+                                                    <i class="flaticon-hand"></i>
+                                                    <span id="like{{ this._id }}">{{ this.likes }}</span>
+                                                </a>
+                                                <a href="#0" class="dislike like_review" data-id="{{ this._id }}" data-action="/review_dislike/{{ this._id }}">
+                                                    <i class="flaticon-dont-like-symbol"></i>
+                                                    <span id="dislike{{ this._id }}">{{ this.dislikes }}</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{/each }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>

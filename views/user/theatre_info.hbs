@@ -1,0 +1,91 @@
+<section class="details-banner hero-area bg_img" data-background="/user_assets/images/banner/banner02.jpg">
+	<div class="container">
+		<div class="details-banner-wrapper">
+			<div class="details-banner-content">
+				<h3 class="title">{{ theatre.name }}</h3>
+				<div class="tags">
+					<a href="#0">{{ theatre.location }},
+						{{#each theatre.district_arr }}
+						{{ this.district_name }}
+						{{/each }}</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="book-section bg-one">
+	<div class="container">
+		<form class="ticket-search-form two">
+			<div class="form-group">
+				<div class="thumb">
+					<img src="/user_assets/images/ticket/date.png" alt="ticket">
+				</div>
+				<span class="type">date</span>
+				<select class="select-bar select_movie_date">
+
+					<option value="/theatre/{{ theatre._id }}/{{ currentDayJoined }}" {{#ifCond date '=='
+						currentDayJoined }} selected {{/ifCond }} {{#ifCond date '!=' currentDayJoined }} {{/ifCond }}>
+
+						{{#splitShortDate currentDayJoined }}
+						{{/splitShortDate }}
+					</option>
+
+					{{#each datesArr }}
+					<option value="/theatre/{{ ../theatre._id }}/{{ this }}" {{#ifCond ../date '==' this }} selected
+						{{/ifCond }} {{#ifCond ../date '!=' this }} {{/ifCond }}>
+						{{#splitShortDate this }}
+						{{/splitShortDate }}
+					</option>
+					{{/each }}
+				</select>
+			</div>
+		</form>
+	</div>
+</section>
+
+<div class="ticket-plan-section padding-bottom padding-top">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-12 mb-5 mb-lg-0">
+				<ul class="seat-plan-wrapper bg-five">
+					{{#if shows }}
+					{{#each shows }}
+					<li>
+						<div class="movie-name">
+							<a href="/movie_info/{{ this.movie_details._id }}/{{ this.movie_details.api_movie_id }}"
+								class="name">
+								{{ this.movie_details.original_title }}
+							</a>
+
+							<p class="text-danger">
+								Language : {{ this.movie_details.original_language }},
+								Duration : {{ this.movie_details.runtime }} minutes
+							</p>
+
+						</div>
+						<div class="movie-schedule">
+							{{#each this.screens }}
+							<a class="mr-2 ml-2" href="/seat_layout/{{ ../this._id }}/{{ this._id }}/{{ ../../date }}">
+								<div class="item">
+									{{ this.screenDetails.name }}
+									<br />
+									{{#splitTime this.start_time }}
+									{{/splitTime}}
+								</div>
+							</a>
+							{{/each }}
+						</div>
+					</li>
+					{{/each }}
+					{{else }}
+					<li>
+						<div class="row p-5 error text-danger">
+							No shows on selected date ....!
+						</div>
+					</li>
+					{{/if }}
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,29 @@
+<!-- ==========Sign-In-Section========== -->
+<section class="account-section bg_img" data-background="/user_assets/images/account/account-bg.jpg">
+    <div class="container">
+        <div class="padding-top padding-bottom">
+            <div class="account-area">
+                <div class="section-header-3">
+                    <span class="cate">hello</span>
+                    <h2 class="title">welcome back</h2>
+                </div>
+                {{#if errorMsg }}
+                <div class="col-lg-12 text-danger text-center">
+                    {{ errorMsg }}
+                </div>
+                {{/if }}
+                <form id="userOtpLogin" class="account-form userForm" action="/otplogin" method="post">
+                    <div class="form-group">
+                        <label for="mobile">Mobile<span>*</span></label>
+                        <input name="mobile" type="text" placeholder="Enter Your Mobile" id="mobile">
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit" onclick="return validateUserOtpLoginForm()" id="form-submit"
+                            class="">Get OTP</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ==========Sign-In-Section========== -->
